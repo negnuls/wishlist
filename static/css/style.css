@@ -1,0 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Italiana&family=Open+Sans:wght@400;500;600&display=swap');
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    background: #131314;
+    color: white;
+    font-family: "Open Sans", sans-serif;
+}
+
+
+/* ОСНОВНАЯ СТРАНИЦА */
+
+.wishlist {
+    width: 100%;
+    padding: 60px 30px;
+}
+
+
+h1 {
+    font-family: "Italiana", serif;
+    font-size: 72px;
+    font-weight: 400;
+    letter-spacing: 15px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+
+/* КАРТОЧКИ */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 10px;
+}
+
+
+.product-card {
+    background: #7E7E7E;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+
+.product-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* КНОПКА БРОНИ */
+
+.product-card button {
+    width: 100%;
+    height: 55px;
+    border: none;
+    background: #BBFF48;
+    color: #131314;
+
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.product-card button:hover {
+    background: #d0ff83;
+}
+
+
+.product-card button:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+
+/* МОДАЛЬНОЕ ОКНО */
+
+.modal {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 100;
+}
+
+
+.modal.active {
+    display: flex;
+}
+
+
+.modal-content {
+    position: relative;
+
+    width: min(900px, 100%);
+
+    background: #131314;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+/* КАРТИНКА В ОКНЕ */
+
+.modal-placeholder {
+    width: 100%;
+    min-height: 500px;
+
+    background: #7E7E7E;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+
+.modal-image {
+    width: 100%;
+    height: 100%;
+
+    min-height: 500px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* ИНФОРМАЦИЯ О ТОВАРЕ */
+
+.modal-info {
+    padding: 45px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 25px;
+}
+
+
+.modal-info h2 {
+    font-family: "Italiana", serif;
+
+    font-size: 42px;
+    font-weight: 400;
+}
+
+
+.price {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+
+.modal-info p {
+    line-height: 1.6;
+}
+
+
+/* КНОПКА МАГАЗИНА */
+
+#shopLink {
+    display: block;
+
+    text-align: center;
+
+    padding: 15px;
+
+    background: white;
+    color: #131314;
+
+    text-decoration: none;
+
+    border-radius: 15px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+#shopLink:hover {
+    background: #e8e8e8;
+}
+
+
+/* КНОПКА БРОНИ В ОКНЕ */
+
+.reserve-button {
+    border: none;
+
+    padding: 17px;
+
+    background: #BBFF48;
+    color: #131314;
+
+    border-radius: 15px;
+
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.reserve-button:hover {
+    background: #d0ff83;
+}
+
+
+.reserve-button:disabled {
+    cursor: default;
+}
+
+
+/* КРЕСТИК */
+
+.close {
+    position: absolute;
+
+    top: 15px;
+    right: 20px;
+
+    background: none;
+    border: none;
+
+    color: white;
+
+    font-size: 35px;
+
+    cursor: pointer;
+
+    z-index: 5;
+}
+
+
+/* МОБИЛЬНАЯ ВЕРСИЯ */
+
+@media (max-width: 600px) {
+
+    .wishlist {
+        padding: 30px;
+    }
+
+
+    h1 {
+        font-size: 45px;
+
+        letter-spacing: 10px;
+
+        margin-bottom: 40px;
+    }
+
+
+    .products {
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 10px;
+    }
+
+
+    .product-card {
+        border-radius: 10px;
+    }
+
+
+    .product-card button {
+        height: 42px;
+
+        font-size: 9px;
+    }
+
+
+    .modal-content {
+        grid-template-columns: 1fr;
+
+        max-height: 90vh;
+
+        overflow-y: auto;
+    }
+
+
+    .modal-placeholder {
+        min-height: 300px;
+    }
+
+
+    .modal-image {
+        min-height: 300px;
+    }
+
+
+    .modal-info {
+        padding: 25px;
+    }
+
+
+    .modal-info h2 {
+        font-size: 32px;
+    }
+
+}
