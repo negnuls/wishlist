@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WISHLIST</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<main class="wishlist">
+
+    <h1>WISHLIST</h1>
+
+    <div class="products" id="products"></div>
+
+</main>
+
+
+<!-- ОКНО ТОВАРА -->
+
+<div class="modal" id="productModal">
+
+    <div class="modal-content">
+
+        <button class="close" onclick="closeProduct()">×</button>
+
+        <div class="modal-placeholder" id="modalPlaceholder"></div>
+
+        <div class="modal-info">
+
+            <h2 id="modalTitle"></h2>
+
+            <p class="price" id="modalPrice"></p>
+
+            <p id="modalDescription"></p>
+
+            <a id="shopLink" href="#" target="_blank">
+                ОТКРЫТЬ МАГАЗИН
+            </a>
+
+            <button class="reserve-button" onclick="reserveProduct()">
+                ЗАБРОНИРОВАТЬ
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
