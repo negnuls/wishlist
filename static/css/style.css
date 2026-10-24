@@ -1,469 +1,187 @@
-@import url('https://fonts.googleapis.com/css2?family=Italiana&family=Open+Sans:wght@400;500;600;700&family=Special+Elite&display=swap');
-
-:root {
-    --background: #131314;
-    --card: #1d1d1d;
-    --lime: #BBFF48;
-    --lime-light: #d0ff83;
-    --burgundy: #790f25;
-    --white: #f3f0e9;
-    --gray: #99978f;
-    --black: #090909;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    min-width: 320px;
-}
+/* ==========================================
+   DIRTY GLAM — HEAVY TEXTURE OVERRIDE
+   ========================================== */
 
 body {
-    position: relative;
-    min-height: 100vh;
-    overflow-x: hidden;
-    background:
-        radial-gradient(ellipse at 8% 10%, rgba(98, 115, 54, .13), transparent 32%),
-        radial-gradient(ellipse at 95% 85%, rgba(121, 15, 37, .10), transparent 30%),
-        #131314;
-    color: var(--white);
-    font-family: "Open Sans", sans-serif;
+    background-color: #111210;
+    background-image:
+        radial-gradient(ellipse at 15% 15%, rgba(90, 112, 45, .22), transparent 34%),
+        radial-gradient(ellipse at 85% 75%, rgba(105, 10, 36, .19), transparent 32%),
+        radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(0, 0, 0, .65) 100%);
+    background-attachment: fixed;
 }
 
-/* ТЕКСТУРА ФОНА — НЕ ПЕРЕКРЫВАЕТ КОНТЕНТ */
-
+/* Крупное аналоговое зерно по всему экрану */
 body::before {
     content: "";
     position: fixed;
-    inset: 0;
-    z-index: 0;
+    inset: -50%;
+    z-index: 10;
     pointer-events: none;
-    opacity: .13;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+    opacity: .20;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.8'/%3E%3C/svg%3E");
     background-size: 180px 180px;
+    mix-blend-mode: soft-light;
 }
 
-/* ОСНОВНАЯ СТРАНИЦА */
+/* Потёртости, царапины и следы печати */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    pointer-events: none;
+    opacity: .38;
+    background-image:
+        repeating-linear-gradient(
+            112deg,
+            transparent 0 73px,
+            rgba(220, 220, 200, .09) 74px,
+            transparent 75px 113px
+        ),
+        repeating-linear-gradient(
+            4deg,
+            transparent 0 31px,
+            rgba(255, 255, 255, .035) 32px,
+            transparent 33px 57px
+        ),
+        radial-gradient(ellipse at 2% 35%, rgba(187, 255, 72, .13), transparent 17%),
+        radial-gradient(ellipse at 98% 90%, rgba(121, 15, 37, .20), transparent 21%);
+    background-size: auto, auto, auto, auto;
+    mix-blend-mode: screen;
+}
 
+/* Контент остаётся выше фона */
 .wishlist {
     position: relative;
     z-index: 1;
-    width: 100%;
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 55px 50px 90px;
 }
 
-/* ЗАГОЛОВОК */
-
+/* Заголовок — контрастный, с печатным смещением */
 h1 {
-    position: relative;
-    width: 100%;
-    margin: 0 auto 65px;
-    color: var(--white);
-    font-family: "Italiana", serif;
-    font-size: clamp(48px, 5vw, 76px);
-    font-weight: 400;
-    letter-spacing: 15px;
-    line-height: 1.2;
-    text-align: center;
-    text-shadow: 2px 2px 0 rgba(187, 255, 72, .07);
+    color: #f1eee4;
+    text-shadow:
+        2px 1px 0 rgba(187, 255, 72, .22),
+        -2px -1px 0 rgba(121, 15, 37, .32),
+        0 0 40px rgba(187, 255, 72, .10);
 }
 
-/* Тонкая потёртая линия */
-
-h1::after {
-    content: "";
-    display: block;
-    width: 95px;
-    height: 2px;
-    margin: 18px auto 0;
-    background: var(--lime);
-    box-shadow: 12px 3px 0 rgba(121, 15, 37, .8);
-}
-
-/* СЕТКА — СТРОГО ПО ЦЕНТРУ */
-
+/* Сетка остаётся ровной */
 .products {
-    display: grid;
     width: 100%;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 26px 18px;
     align-items: start;
 }
 
-/* КАРТОЧКИ */
-
+/* Карточки — тёмные, с объёмом и потёртой рамкой */
 .product-card {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
+    isolation: isolate;
     overflow: hidden;
-    background: var(--card);
-    border: 1px solid rgba(243, 240, 233, .15);
-    border-radius: 12px;
-    cursor: pointer;
-    transition:
-        transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
+    background: #1a1a18;
+    border: 1px solid rgba(232, 229, 211, .26);
+    border-radius: 8px;
+    box-shadow:
+        0 2px 0 rgba(255, 255, 255, .025) inset,
+        0 12px 25px rgba(0, 0, 0, .35),
+        4px 5px 0 rgba(0, 0, 0, .22);
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
 
-/* Узкая цветная метка сверху */
-
+/* Текстура на карточке, но не поверх кнопки и фото */
 .product-card::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     z-index: 2;
-    width: 34px;
-    height: 3px;
-    background: var(--lime);
     pointer-events: none;
+    opacity: .26;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='rough'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.035' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23rough)' opacity='.8'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+    mix-blend-mode: screen;
+}
+
+/* Отдельные царапины по краям карточки */
+.product-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: .7;
+    background:
+        linear-gradient(115deg, transparent 0 8%, rgba(255,255,255,.16) 8.1%, transparent 8.5%),
+        linear-gradient(72deg, transparent 0 91%, rgba(255,255,255,.13) 91.1%, transparent 91.5%),
+        linear-gradient(180deg, rgba(255,255,255,.10), transparent 2%, transparent 97%, rgba(0,0,0,.5));
 }
 
 .product-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(187, 255, 72, .6);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+    transform: translateY(-6px) rotate(-.25deg);
+    border-color: rgba(187, 255, 72, .7);
+    box-shadow:
+        0 18px 35px rgba(0, 0, 0, .5),
+        5px 6px 0 rgba(187, 255, 72, .12);
 }
 
-/* ФОТО */
-
+/* Фотографии — немного плёночного контраста */
 .product-image {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 4.5;
-    object-fit: cover;
-    background: #242424;
-    filter: contrast(1.025) saturate(.96);
-    transition: filter .25s ease;
+    position: relative;
+    z-index: 0;
+    filter: contrast(1.08) saturate(.88);
+    transition: filter .3s ease, transform .4s ease;
 }
 
 .product-card:hover .product-image {
-    filter: contrast(1.06) saturate(1.04);
+    filter: contrast(1.12) saturate(1.04);
 }
 
-/* КНОПКИ КАРТОЧЕК */
-
+/* Кнопки остаются поверх всех декоративных слоёв */
 .product-card button {
     position: relative;
-    z-index: 3;
-    display: block;
-    flex-shrink: 0;
-    width: 100%;
-    min-height: 52px;
-    padding: 12px 6px;
-    border: 0;
-    border-radius: 0;
-    background: var(--lime);
-    color: var(--black);
-    font-family: "Open Sans", sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    cursor: pointer;
-    transition: background .2s ease;
+    z-index: 4;
+    background-color: #BBFF48;
+    color: #111210;
+    box-shadow: 0 -1px 0 rgba(255,255,255,.18) inset;
+    letter-spacing: 1px;
 }
 
 .product-card button:hover {
-    background: var(--lime-light);
+    background-color: #d5ff8b;
 }
 
-/* ЗАБРОНИРОВАННЫЕ КАРТОЧКИ */
-
-.product-card.is-reserved {
-    border-color: rgba(121, 15, 37, .7);
-}
-
-.product-card.is-reserved::before {
-    background: var(--burgundy);
-}
-
-.product-card button.is-reserved {
-    background: var(--burgundy);
-    color: var(--white);
-}
-
-.product-card button.is-reserved:hover {
-    background: #971831;
-}
-
-/* МОДАЛЬНОЕ ОКНО */
-
-.modal {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: rgba(0, 0, 0, .84);
-    backdrop-filter: blur(8px);
-}
-
-.modal.active {
-    display: flex;
-}
-
-.modal-content {
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    width: min(900px, 100%);
-    max-height: 90vh;
-    overflow: hidden;
-    background: #19191a;
-    border: 1px solid rgba(187, 255, 72, .25);
-    border-radius: 8px;
-    box-shadow: 8px 8px 0 rgba(121, 15, 37, .2);
-}
-
-/* ФОТО В ОКНЕ */
-
-.modal-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 0;
-    min-height: 400px;
-    overflow: hidden;
-    background: #242425;
-}
-
-.modal-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    min-height: 400px;
-    object-fit: cover;
-}
-
-/* ОПИСАНИЕ ТОВАРА */
-
-.modal-info {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    gap: 22px;
-    padding: 42px 32px 30px;
-    overflow-y: auto;
-}
-
-.modal-info h2 {
-    font-family: "Italiana", serif;
-    font-size: 40px;
-    font-weight: 400;
-    overflow-wrap: anywhere;
-}
-
-.price {
-    color: var(--lime);
-    font-size: 23px;
-    font-weight: 600;
-    overflow-wrap: anywhere;
-}
-
-.modal-info p {
-    color: #d0d0d0;
-    font-size: 14px;
-    line-height: 1.8;
-    overflow-wrap: anywhere;
-}
-
-/* ССЫЛКА НА МАГАЗИН */
-
-#shopLink {
-    display: block;
-    margin-top: auto;
-    padding: 15px;
-    border: 1px solid rgba(243, 240, 233, .65);
-    border-radius: 3px;
-    background: transparent;
-    color: var(--white);
-    font-size: 12px;
-    font-weight: 600;
-    text-align: center;
-    text-decoration: none;
-    transition: background .2s ease, color .2s ease;
-}
-
-#shopLink:hover {
-    background: var(--white);
-    color: var(--black);
-}
-
-/* КНОПКА БРОНИ В ОКНЕ */
-
-.reserve-button {
-    display: block;
-    width: 100%;
-    min-height: 50px;
-    padding: 15px;
-    border: 0;
-    border-radius: 3px;
-    background: var(--lime);
-    color: var(--black);
-    font-family: "Open Sans", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.reserve-button:hover {
-    background: var(--lime-light);
-}
-
+/* Бордовый — глубокий, не плоский */
+.product-card button.is-reserved,
 .reserve-button.is-reserved {
-    background: var(--burgundy);
-    color: var(--white);
+    background-image: linear-gradient(135deg, #8b142e, #570b1b);
+    color: #f3f0e9;
 }
 
-.reserve-button.is-reserved:hover {
-    background: #971831;
+/* Окно товара */
+.modal-content {
+    border: 1px solid rgba(187, 255, 72, .32);
+    box-shadow:
+        12px 12px 0 rgba(121, 15, 37, .28),
+        0 25px 80px rgba(0, 0, 0, .7);
 }
 
-.reserve-button:disabled {
-    opacity: .65;
-    cursor: wait;
+/* Текстура внутри информационной панели */
+.modal-info {
+    background-color: #191918;
+    background-image:
+        repeating-linear-gradient(0deg, transparent 0 5px, rgba(255,255,255,.025) 6px),
+        radial-gradient(ellipse at 100% 0%, rgba(187,255,72,.07), transparent 45%);
 }
 
-/* КРЕСТИК */
-
-.close {
-    position: absolute;
-    top: 9px;
-    right: 12px;
-    z-index: 5;
-    padding: 2px 6px;
-    border: 0;
-    background: rgba(19, 19, 20, .8);
-    color: var(--white);
-    font-size: 32px;
-    line-height: 1;
-    cursor: pointer;
-}
-
-.close:hover {
-    color: var(--lime);
-}
-
-/* ПЛАНШЕТЫ */
-
-@media (max-width: 1000px) {
-    .wishlist {
-        padding: 45px 30px 70px;
-    }
-
-    .products {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 22px 14px;
-    }
-
-    h1 {
-        letter-spacing: 10px;
-    }
-
-    .modal-info {
-        padding: 30px 24px;
-    }
-}
-
-/* ТЕЛЕФОНЫ */
-
+/* Меньше эффектов на телефонах, но зерно сохраняется */
 @media (max-width: 600px) {
-    .wishlist {
-        padding: 35px 16px 55px;
+    body::before {
+        opacity: .13;
     }
 
-    h1 {
-        margin-bottom: 38px;
-        font-size: 38px;
-        letter-spacing: 6px;
+    body::after {
+        opacity: .24;
     }
 
-    .products {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 15px 10px;
-    }
-
-    .product-card {
-        border-radius: 7px;
-    }
-
-    .product-card button {
-        min-height: 43px;
-        padding: 9px 3px;
-        font-size: 9px;
-        letter-spacing: 0;
-        overflow-wrap: anywhere;
-    }
-
-    .modal {
-        padding: 10px;
-    }
-
-    .modal-content {
-        display: flex;
-        flex-direction: column;
-        max-height: 94vh;
-        overflow-y: auto;
-    }
-
-    .modal-placeholder {
-        flex-shrink: 0;
-        min-height: 0;
-        height: 30vh;
-    }
-
-    .modal-image {
-        min-height: 0;
-        height: 100%;
-        object-fit: contain;
-    }
-
-    .modal-info {
-        flex-shrink: 0;
-        gap: 17px;
-        padding: 25px 19px 20px;
-        overflow-y: visible;
-    }
-
-    .modal-info h2 {
-        padding-right: 25px;
-        font-size: 32px;
-    }
-
-    .price {
-        font-size: 21px;
-    }
-}
-
-/* УЗКИЕ ТЕЛЕФОНЫ */
-
-@media (max-width: 360px) {
-    .wishlist {
-        padding-right: 11px;
-        padding-left: 11px;
-    }
-
-    h1 {
-        font-size: 31px;
-        letter-spacing: 4px;
-    }
-
-    .products {
-        gap: 12px 8px;
-    }
-
-    .product-card button {
-        font-size: 8px;
+    .product-card:hover {
+        transform: translateY(-2px);
     }
 }
