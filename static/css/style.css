@@ -8,6 +8,7 @@
     --burgundy: #790f25;
     --white: #ffffff;
     --gray: #a6a6a6;
+    --black: #090909;
 }
 
 * {
@@ -16,38 +17,124 @@
     padding: 0;
 }
 
+html {
+    min-width: 320px;
+}
+
 body {
+    position: relative;
+    isolation: isolate;
     min-height: 100vh;
-    background:
+    overflow-x: hidden;
+    background-color: #131411;
+    background-image:
         radial-gradient(
-            ellipse at 12% 18%,
-            rgba(187, 255, 72, 0.10),
-            transparent 32%
+            ellipse at 8% 12%,
+            rgba(100, 119, 52, 0.23),
+            transparent 34%
         ),
         radial-gradient(
-            ellipse at 88% 55%,
-            rgba(187, 255, 72, 0.07),
-            transparent 35%
+            ellipse at 95% 78%,
+            rgba(91, 31, 39, 0.19),
+            transparent 33%
         ),
         radial-gradient(
-            ellipse at 45% 100%,
-            rgba(187, 255, 72, 0.05),
-            transparent 38%
-        ),
-        var(--background);
+            ellipse at 48% 45%,
+            transparent 40%,
+            rgba(0, 0, 0, 0.38) 100%
+        );
     background-attachment: fixed;
     color: var(--white);
     font-family: "Open Sans", sans-serif;
 }
 
-/* ОСНОВНАЯ СТРАНИЦА */
+/* ========================================
+   ФОНОВАЯ ТЕКСТУРА
+   Только фон, не перекрывает содержимое
+   ======================================== */
+
+/* Аналоговое зерно, пыль и мелкие точки */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.38;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.75'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+    mix-blend-mode: screen;
+}
+
+/* Царапины, грязные разводы и потёртые участки */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.8;
+    background-image:
+        /* длинные тонкие царапины */
+        linear-gradient(
+            112deg,
+            transparent 0 13.1%,
+            rgba(224, 222, 194, 0.16) 13.15%,
+            transparent 13.25%
+        ),
+        linear-gradient(
+            76deg,
+            transparent 0 83.4%,
+            rgba(224, 222, 194, 0.12) 83.48%,
+            transparent 83.58%
+        ),
+        linear-gradient(
+            105deg,
+            transparent 0 44.7%,
+            rgba(224, 222, 194, 0.08) 44.76%,
+            transparent 44.85%
+        ),
+
+        /* мелкие горизонтальные следы */
+        repeating-linear-gradient(
+            174deg,
+            transparent 0 46px,
+            rgba(225, 222, 200, 0.035) 47px,
+            transparent 48px 87px
+        ),
+
+        /* потёртости по краям */
+        radial-gradient(
+            ellipse at 0% 24%,
+            rgba(187, 255, 72, 0.13),
+            transparent 22%
+        ),
+        radial-gradient(
+            ellipse at 100% 88%,
+            rgba(121, 15, 37, 0.20),
+            transparent 24%
+        ),
+        radial-gradient(
+            ellipse at 30% 100%,
+            rgba(174, 164, 128, 0.08),
+            transparent 25%
+        );
+}
+
+/* ========================================
+   ОСНОВНАЯ СТРАНИЦА
+   ======================================== */
 
 .wishlist {
+    position: relative;
+    z-index: 1;
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
     padding: 60px 50px 90px;
 }
+
+/* ЗАГОЛОВОК */
 
 h1 {
     font-family: "Italiana", serif;
@@ -57,7 +144,10 @@ h1 {
     text-align: center;
     margin-bottom: 65px;
     color: var(--white);
-    text-shadow: 0 0 35px rgba(187, 255, 72, 0.12);
+    text-shadow:
+        0 0 35px rgba(187, 255, 72, 0.12),
+        1px 0 rgba(187, 255, 72, 0.10),
+        -1px 0 rgba(121, 15, 37, 0.13);
 }
 
 /* КАРТОЧКИ */
@@ -106,6 +196,7 @@ h1 {
 .product-card button {
     position: relative;
     z-index: 1;
+    display: block;
     width: 100%;
     min-height: 52px;
     padding: 12px 8px;
@@ -146,7 +237,9 @@ h1 {
     background: #971831;
 }
 
-/* МОДАЛЬНОЕ ОКНО */
+/* ========================================
+   МОДАЛЬНОЕ ОКНО
+   ======================================== */
 
 .modal {
     display: none;
@@ -174,7 +267,9 @@ h1 {
     overflow: hidden;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    box-shadow: 0 0 50px rgba(187, 255, 72, 0.06);
+    box-shadow:
+        0 0 50px rgba(187, 255, 72, 0.06),
+        8px 10px 35px rgba(0, 0, 0, 0.35);
 }
 
 /* ФОТО В МОДАЛЬНОМ ОКНЕ */
@@ -206,6 +301,13 @@ h1 {
     flex-direction: column;
     gap: 24px;
     overflow-y: auto;
+    background:
+        radial-gradient(
+            ellipse at 100% 0%,
+            rgba(187, 255, 72, 0.055),
+            transparent 42%
+        ),
+        #19191a;
 }
 
 .modal-info h2 {
@@ -288,7 +390,7 @@ h1 {
     right: 17px;
     background: transparent;
     border: none;
-    color: var(--black);
+    color: var(--white);
     font-size: 35px;
     line-height: 1;
     cursor: pointer;
@@ -300,7 +402,9 @@ h1 {
     color: var(--lime);
 }
 
-/* ПЛАНШЕТЫ */
+/* ========================================
+   ПЛАНШЕТЫ
+   ======================================== */
 
 @media (max-width: 1000px) {
     .wishlist {
@@ -321,7 +425,9 @@ h1 {
     }
 }
 
-/* ТЕЛЕФОНЫ */
+/* ========================================
+   ТЕЛЕФОНЫ
+   ======================================== */
 
 @media (max-width: 600px) {
     .wishlist {
@@ -388,9 +494,20 @@ h1 {
         top: 12px;
         right: 14px;
     }
+
+    /* На телефоне фон менее зернистый */
+    body::before {
+        opacity: 0.24;
+    }
+
+    body::after {
+        opacity: 0.55;
+    }
 }
 
-/* УЗКИЕ ТЕЛЕФОНЫ */
+/* ========================================
+   УЗКИЕ ТЕЛЕФОНЫ
+   ======================================== */
 
 @media (max-width: 360px) {
     .wishlist {
