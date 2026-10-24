@@ -1,193 +1,469 @@
-/* ===== DIRTY GRUNGE TEXTURE ===== */
+@import url('https://fonts.googleapis.com/css2?family=Italiana&family=Open+Sans:wght@400;500;600;700&family=Special+Elite&display=swap');
+
+:root {
+    --background: #131314;
+    --card: #1d1d1d;
+    --lime: #BBFF48;
+    --lime-light: #d0ff83;
+    --burgundy: #790f25;
+    --white: #f3f0e9;
+    --gray: #99978f;
+    --black: #090909;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    min-width: 320px;
+}
 
 body {
     position: relative;
-    isolation: isolate;
+    min-height: 100vh;
+    overflow-x: hidden;
     background:
-        radial-gradient(ellipse at 10% 20%, rgba(103, 129, 48, 0.13), transparent 35%),
-        radial-gradient(ellipse at 90% 80%, rgba(104, 15, 37, 0.10), transparent 30%),
+        radial-gradient(ellipse at 8% 10%, rgba(98, 115, 54, .13), transparent 32%),
+        radial-gradient(ellipse at 95% 85%, rgba(121, 15, 37, .10), transparent 30%),
         #131314;
+    color: var(--white);
+    font-family: "Open Sans", sans-serif;
 }
 
-/* Шум на всём фоне */
+/* ТЕКСТУРА ФОНА — НЕ ПЕРЕКРЫВАЕТ КОНТЕНТ */
+
 body::before {
     content: "";
     position: fixed;
-    inset: -50%;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.19;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-    background-size: 180px 180px;
-    transform: rotate(-3deg);
-}
-
-/* Едва заметные царапины и потёртые полосы */
-body::after {
-    content: "";
-    position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: 0;
     pointer-events: none;
-    opacity: 0.2;
-    background:
-        linear-gradient(113deg, transparent 0 19%, rgba(255,255,255,.035) 19.1%, transparent 19.3% 100%),
-        linear-gradient(72deg, transparent 0 67%, rgba(255,255,255,.025) 67.1%, transparent 67.3% 100%),
-        repeating-linear-gradient(177deg, transparent 0 37px, rgba(255,255,255,.018) 38px, transparent 39px 83px),
-        radial-gradient(ellipse at 5% 70%, rgba(187,255,72,.07), transparent 30%);
+    opacity: .13;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
 }
 
-/* Заголовок */
+/* ОСНОВНАЯ СТРАНИЦА */
+
+.wishlist {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 55px 50px 90px;
+}
+
+/* ЗАГОЛОВОК */
+
 h1 {
     position: relative;
-    text-shadow:
-        1px 0 rgba(187, 255, 72, 0.20),
-        -2px 1px rgba(121, 15, 37, 0.20);
+    width: 100%;
+    margin: 0 auto 65px;
+    color: var(--white);
+    font-family: "Italiana", serif;
+    font-size: clamp(48px, 5vw, 76px);
+    font-weight: 400;
+    letter-spacing: 15px;
+    line-height: 1.2;
+    text-align: center;
+    text-shadow: 2px 2px 0 rgba(187, 255, 72, .07);
 }
 
-/* Грубая линия под заголовком */
+/* Тонкая потёртая линия */
+
 h1::after {
     content: "";
     display: block;
-    width: 110px;
+    width: 95px;
     height: 2px;
-    margin: 20px auto 0;
+    margin: 18px auto 0;
     background: var(--lime);
-    box-shadow: 12px 3px 0 rgba(121, 15, 37, 0.8);
-    transform: rotate(-1.5deg);
+    box-shadow: 12px 3px 0 rgba(121, 15, 37, .8);
 }
 
-/* Карточки */
+/* СЕТКА — СТРОГО ПО ЦЕНТРУ */
+
+.products {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 26px 18px;
+    align-items: start;
+}
+
+/* КАРТОЧКИ */
+
 .product-card {
     position: relative;
-    border: 1px solid rgba(235, 231, 219, 0.19);
-    border-radius: 10px;
-    background: #1b1b1b;
-    box-shadow:
-        inset 0 0 0 1px rgba(0, 0, 0, 0.4),
-        3px 4px 0 rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid rgba(243, 240, 233, .15);
+    border-radius: 12px;
+    cursor: pointer;
     transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
 }
 
-/* Пыль и шум поверх фото */
+/* Узкая цветная метка сверху */
+
 .product-card::before {
     content: "";
     position: absolute;
-    inset: 0;
-    z-index: 1;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 34px;
+    height: 3px;
+    background: var(--lime);
     pointer-events: none;
-    opacity: 0.12;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
-    background-size: 160px 160px;
-}
-
-/* Фото */
-.product-image {
-    filter: saturate(0.94) contrast(1.035);
-    transition: filter 0.3s ease, transform 0.4s ease;
 }
 
 .product-card:hover {
-    transform: translateY(-5px) rotate(-0.3deg);
-    border-color: rgba(187, 255, 72, 0.65);
-    box-shadow:
-        5px 6px 0 rgba(187, 255, 72, 0.10),
-        0 12px 35px rgba(0, 0, 0, 0.3);
+    transform: translateY(-4px);
+    border-color: rgba(187, 255, 72, .6);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+}
+
+/* ФОТО */
+
+.product-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 4.5;
+    object-fit: cover;
+    background: #242424;
+    filter: contrast(1.025) saturate(.96);
+    transition: filter .25s ease;
 }
 
 .product-card:hover .product-image {
-    filter: saturate(1.08) contrast(1.07);
+    filter: contrast(1.06) saturate(1.04);
 }
 
-/* Лаймовые кнопки с лёгкой зернистостью */
-.product-card button,
-.reserve-button {
+/* КНОПКИ КАРТОЧЕК */
+
+.product-card button {
     position: relative;
-    overflow: hidden;
-    background-color: var(--lime);
-    color: #131314;
+    z-index: 3;
+    display: block;
+    flex-shrink: 0;
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 6px;
+    border: 0;
     border-radius: 0;
-    letter-spacing: 0.7px;
+    background: var(--lime);
+    color: var(--black);
+    font-family: "Open Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    cursor: pointer;
+    transition: background .2s ease;
 }
 
-.product-card button::after,
-.reserve-button::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.10;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 100px 100px;
+.product-card button:hover {
+    background: var(--lime-light);
 }
 
-.product-card button:hover,
-.reserve-button:hover {
-    background-color: #d0ff83;
+/* ЗАБРОНИРОВАННЫЕ КАРТОЧКИ */
+
+.product-card.is-reserved {
+    border-color: rgba(121, 15, 37, .7);
 }
 
-/* Бордовые кнопки для забронированного */
-.product-card button.is-reserved,
-.reserve-button.is-reserved {
-    background-color: #790f25;
-    color: #f3f0e9;
+.product-card.is-reserved::before {
+    background: var(--burgundy);
 }
 
-.product-card button.is-reserved:hover,
-.reserve-button.is-reserved:hover {
-    background-color: #971831;
+.product-card button.is-reserved {
+    background: var(--burgundy);
+    color: var(--white);
 }
 
-/* Модальное окно */
+.product-card button.is-reserved:hover {
+    background: #971831;
+}
+
+/* МОДАЛЬНОЕ ОКНО */
+
 .modal {
-    background: rgba(5, 5, 5, 0.86);
-    backdrop-filter: blur(9px);
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, .84);
+    backdrop-filter: blur(8px);
+}
+
+.modal.active {
+    display: flex;
 }
 
 .modal-content {
-    border: 1px solid rgba(187, 255, 72, 0.22);
-    border-radius: 5px;
-    box-shadow:
-        8px 8px 0 rgba(121, 15, 37, 0.22),
-        0 0 60px rgba(0, 0, 0, 0.45);
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    width: min(900px, 100%);
+    max-height: 90vh;
+    overflow: hidden;
+    background: #19191a;
+    border: 1px solid rgba(187, 255, 72, .25);
+    border-radius: 8px;
+    box-shadow: 8px 8px 0 rgba(121, 15, 37, .2);
 }
+
+/* ФОТО В ОКНЕ */
+
+.modal-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 400px;
+    overflow: hidden;
+    background: #242425;
+}
+
+.modal-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+}
+
+/* ОПИСАНИЕ ТОВАРА */
 
 .modal-info {
-    background:
-        repeating-linear-gradient(
-            0deg,
-            transparent 0 5px,
-            rgba(255, 255, 255, 0.012) 6px
-        ),
-        #19191a;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 22px;
+    padding: 42px 32px 30px;
+    overflow-y: auto;
 }
+
+.modal-info h2 {
+    font-family: "Italiana", serif;
+    font-size: 40px;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+}
+
+.price {
+    color: var(--lime);
+    font-size: 23px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.modal-info p {
+    color: #d0d0d0;
+    font-size: 14px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+/* ССЫЛКА НА МАГАЗИН */
 
 #shopLink {
-    border-radius: 2px;
+    display: block;
+    margin-top: auto;
+    padding: 15px;
+    border: 1px solid rgba(243, 240, 233, .65);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: background .2s ease, color .2s ease;
 }
+
+#shopLink:hover {
+    background: var(--white);
+    color: var(--black);
+}
+
+/* КНОПКА БРОНИ В ОКНЕ */
 
 .reserve-button {
-    border-radius: 2px;
+    display: block;
+    width: 100%;
+    min-height: 50px;
+    padding: 15px;
+    border: 0;
+    border-radius: 3px;
+    background: var(--lime);
+    color: var(--black);
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
 }
 
-/* На телефоне текстура остаётся лёгкой */
-@media (max-width: 600px) {
-    body::before {
-        opacity: 0.12;
+.reserve-button:hover {
+    background: var(--lime-light);
+}
+
+.reserve-button.is-reserved {
+    background: var(--burgundy);
+    color: var(--white);
+}
+
+.reserve-button.is-reserved:hover {
+    background: #971831;
+}
+
+.reserve-button:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+/* КРЕСТИК */
+
+.close {
+    position: absolute;
+    top: 9px;
+    right: 12px;
+    z-index: 5;
+    padding: 2px 6px;
+    border: 0;
+    background: rgba(19, 19, 20, .8);
+    color: var(--white);
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: var(--lime);
+}
+
+/* ПЛАНШЕТЫ */
+
+@media (max-width: 1000px) {
+    .wishlist {
+        padding: 45px 30px 70px;
     }
 
-    body::after {
-        opacity: 0.12;
+    .products {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px 14px;
+    }
+
+    h1 {
+        letter-spacing: 10px;
+    }
+
+    .modal-info {
+        padding: 30px 24px;
+    }
+}
+
+/* ТЕЛЕФОНЫ */
+
+@media (max-width: 600px) {
+    .wishlist {
+        padding: 35px 16px 55px;
+    }
+
+    h1 {
+        margin-bottom: 38px;
+        font-size: 38px;
+        letter-spacing: 6px;
+    }
+
+    .products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px 10px;
     }
 
     .product-card {
-        border-radius: 6px;
+        border-radius: 7px;
     }
 
-    h1::after {
-        margin-top: 15px;
+    .product-card button {
+        min-height: 43px;
+        padding: 9px 3px;
+        font-size: 9px;
+        letter-spacing: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .modal {
+        padding: 10px;
+    }
+
+    .modal-content {
+        display: flex;
+        flex-direction: column;
+        max-height: 94vh;
+        overflow-y: auto;
+    }
+
+    .modal-placeholder {
+        flex-shrink: 0;
+        min-height: 0;
+        height: 30vh;
+    }
+
+    .modal-image {
+        min-height: 0;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .modal-info {
+        flex-shrink: 0;
+        gap: 17px;
+        padding: 25px 19px 20px;
+        overflow-y: visible;
+    }
+
+    .modal-info h2 {
+        padding-right: 25px;
+        font-size: 32px;
+    }
+
+    .price {
+        font-size: 21px;
+    }
+}
+
+/* УЗКИЕ ТЕЛЕФОНЫ */
+
+@media (max-width: 360px) {
+    .wishlist {
+        padding-right: 11px;
+        padding-left: 11px;
+    }
+
+    h1 {
+        font-size: 31px;
+        letter-spacing: 4px;
+    }
+
+    .products {
+        gap: 12px 8px;
+    }
+
+    .product-card button {
+        font-size: 8px;
     }
 }
