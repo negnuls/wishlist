@@ -523,4 +523,7 @@ h1 {
     .product-card button {
         font-size: 8px;
     }
+    .product-image {
+    object-fit: contain;
+    background: transparent;
 }
