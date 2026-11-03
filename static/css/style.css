@@ -37,6 +37,7 @@ body {
 }
 
 /* ЗЕРНО И ПЫЛЬ */
+
 body::before {
     content: "";
     position: fixed;
@@ -49,7 +50,8 @@ body::before {
     mix-blend-mode: screen;
 }
 
-/* ЦАРАПИНЫ И ПОТЁРТОСТИ ФОНА */
+/* ЦАРАПИНЫ И ПОТЁРТОСТИ */
+
 body::after {
     content: "";
     position: fixed;
@@ -68,6 +70,7 @@ body::after {
 }
 
 /* ОСНОВНАЯ СТРАНИЦА */
+
 .wishlist {
     position: relative;
     z-index: 1;
@@ -78,6 +81,7 @@ body::after {
 }
 
 /* ЗАГОЛОВОК */
+
 h1 {
     font-family: "Italiana", serif;
     font-size: clamp(42px, 5vw, 72px);
@@ -92,14 +96,16 @@ h1 {
         -1px 0 rgba(121, 15, 37, 0.13);
 }
 
-/* СЕТКА КАРТОЧЕК */
+/* СЕТКА ТОВАРОВ */
+
 .products {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 28px 18px;
 }
 
-/* ПРОЗРАЧНЫЕ КАРТОЧКИ */
+/* КАРТОЧКИ */
+
 .product-card {
     min-width: 0;
     position: relative;
@@ -120,7 +126,40 @@ h1 {
     box-shadow: 0 10px 35px rgba(187, 255, 72, 0.08);
 }
 
-/* ИЗОБРАЖЕНИЯ С ПРОЗРАЧНЫМ ФОНОМ */
+/* ПЛАШКИ КАТЕГОРИЙ */
+
+.product-category {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+
+    max-width: calc(100% - 24px);
+    padding: 7px 11px;
+
+    background: rgba(255, 255, 255, 0.82);
+    color: #131314;
+
+    font-family: "Open Sans", sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+
+    border-radius: 5px;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+}
+
+/* БОРДОВАЯ ПЛАШКА */
+
+.product-category.burgundy {
+    background: rgba(121, 15, 37, 0.88);
+    color: #ffffff;
+}
+
+/* ИЗОБРАЖЕНИЯ */
+
 .product-image {
     width: 100%;
     aspect-ratio: 4 / 4.5;
@@ -135,6 +174,7 @@ h1 {
 }
 
 /* КНОПКИ В КАРТОЧКАХ */
+
 .product-card button {
     position: relative;
     z-index: 1;
@@ -158,6 +198,7 @@ h1 {
 }
 
 /* ЗАБРОНИРОВАННЫЙ ТОВАР */
+
 .product-card.is-reserved {
     border-color: rgba(180, 25, 57, 0.45);
 }
@@ -177,6 +218,7 @@ h1 {
 }
 
 /* МОДАЛЬНОЕ ОКНО */
+
 .modal {
     display: none;
     position: fixed;
@@ -208,7 +250,8 @@ h1 {
         8px 10px 35px rgba(0, 0, 0, 0.35);
 }
 
-/* ФОТО В МОДАЛЬНОМ ОКНЕ */
+/* ФОТО В ОКНЕ */
+
 .modal-placeholder {
     width: 100%;
     min-height: 450px;
@@ -228,6 +271,7 @@ h1 {
 }
 
 /* ИНФОРМАЦИЯ О ТОВАРЕ */
+
 .modal-info {
     min-width: 0;
     padding: 45px;
@@ -259,7 +303,8 @@ h1 {
     overflow-wrap: anywhere;
 }
 
-/* КНОПКА МАГАЗИНА */
+/* МАГАЗИН */
+
 #shopLink {
     display: block;
     margin-top: auto;
@@ -277,7 +322,8 @@ h1 {
     background: var(--white);
 }
 
-/* КНОПКА БРОНИ В ОКНЕ */
+/* КНОПКА БРОНИ */
+
 .reserve-button {
     width: 100%;
     padding: 17px;
@@ -311,6 +357,7 @@ h1 {
 }
 
 /* КРЕСТИК */
+
 .close {
     position: absolute;
     top: 10px;
@@ -330,6 +377,7 @@ h1 {
 }
 
 /* ПЛАНШЕТЫ */
+
 @media (max-width: 1000px) {
     .wishlist {
         padding: 45px 30px 70px;
@@ -350,6 +398,7 @@ h1 {
 }
 
 /* ТЕЛЕФОНЫ */
+
 @media (max-width: 600px) {
     .wishlist {
         padding: 35px 18px 55px;
@@ -368,6 +417,14 @@ h1 {
 
     .product-card {
         border-radius: 10px;
+    }
+
+    .product-category {
+        top: 8px;
+        left: 8px;
+        max-width: calc(100% - 16px);
+        padding: 6px 8px;
+        font-size: 8px;
     }
 
     .product-card button {
@@ -426,6 +483,7 @@ h1 {
 }
 
 /* УЗКИЕ ТЕЛЕФОНЫ */
+
 @media (max-width: 360px) {
     .wishlist {
         padding-left: 12px;

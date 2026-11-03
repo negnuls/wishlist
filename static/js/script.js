@@ -1,6 +1,14 @@
-
 let products = [];
 let currentProduct = null;
+
+
+// Названия категорий
+const categories = {
+    very_needed: "ОЧЕНЬ НУЖНО",
+    want: "ХОЧУ",
+    dream: "МЕЧТА",
+    like: "ПРОСТО НРАВИТСЯ"
+};
 
 
 // Загружаем товары с сервера
@@ -41,7 +49,7 @@ function renderProducts() {
 
         card.className = "product-card";
 
-        // Цвет карточки забронированного товара
+        // Забронированный товар
         if (product.reserved) {
             card.classList.add("is-reserved");
         }
@@ -49,6 +57,27 @@ function renderProducts() {
         card.onclick = function () {
             openProduct(product.id);
         };
+
+
+        // Плашка категории
+        if (categories[product.category]) {
+
+            const badge = document.createElement("div");
+
+            badge.className = "product-category";
+
+            badge.textContent = categories[product.category];
+
+            // Бордовые плашки для категорий
+            if (
+                product.category === "dream" ||
+                product.category === "very_needed"
+            ) {
+                badge.classList.add("burgundy");
+            }
+
+            card.appendChild(badge);
+        }
 
 
         // Картинка товара
@@ -65,14 +94,13 @@ function renderProducts() {
         };
 
 
-        // Кнопка
+        // Кнопка бронирования
         const button = document.createElement("button");
 
         button.textContent = product.reserved
             ? "ЗАБРОНИРОВАНО"
             : "ЗАБРОНИРОВАТЬ";
 
-        // Бордовый цвет для забронированного товара
         if (product.reserved) {
             button.classList.add("is-reserved");
         }
@@ -108,7 +136,7 @@ function openProduct(id) {
     }
 
 
-    // Картинка в окне товара
+    // Картинка
     const modalPlaceholder =
         document.getElementById("modalPlaceholder");
 
@@ -130,6 +158,7 @@ function openProduct(id) {
     }
 
 
+    // Информация о товаре
     document.getElementById("modalTitle").textContent =
         product.title;
 
@@ -140,9 +169,10 @@ function openProduct(id) {
         product.description;
 
     document.getElementById("shopLink").href =
-        product.shop_url;
+        product.shop_url || "#";
 
 
+    // Кнопка бронирования
     const reserveButton =
         document.querySelector(".reserve-button");
 
@@ -183,7 +213,6 @@ async function reserveProduct() {
         return;
     }
 
-
     const button =
         document.querySelector(".reserve-button");
 
@@ -201,7 +230,6 @@ async function reserveProduct() {
             }
         );
 
-
         const data = await response.json();
 
 
@@ -215,7 +243,6 @@ async function reserveProduct() {
                 product.reserved = true;
             }
 
-
             button.textContent = "ОТМЕНИТЬ БРОНЬ";
 
             button.classList.add("is-reserved");
@@ -223,7 +250,6 @@ async function reserveProduct() {
             button.disabled = false;
 
             button.onclick = cancelProduct;
-
 
             renderProducts();
 
@@ -264,7 +290,6 @@ async function cancelProduct() {
         return;
     }
 
-
     const button =
         document.querySelector(".reserve-button");
 
@@ -282,7 +307,6 @@ async function cancelProduct() {
             }
         );
 
-
         const data = await response.json();
 
 
@@ -296,7 +320,6 @@ async function cancelProduct() {
                 product.reserved = false;
             }
 
-
             button.textContent = "ЗАБРОНИРОВАТЬ";
 
             button.classList.remove("is-reserved");
@@ -304,7 +327,6 @@ async function cancelProduct() {
             button.disabled = false;
 
             button.onclick = reserveProduct;
-
 
             renderProducts();
 
@@ -369,5 +391,5 @@ window.onclick = function(event) {
 };
 
 
-// Загружаем товары при открытии страницы
+// Загружаем товары
 loadProducts();
